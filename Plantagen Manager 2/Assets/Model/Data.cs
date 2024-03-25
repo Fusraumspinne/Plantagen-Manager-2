@@ -6,6 +6,8 @@ public class Data
     public int bubatz;
     public int heroin;
 
+    public int schulden;
+
     public bool haus1;
     public bool haus2;
     public bool haus3;

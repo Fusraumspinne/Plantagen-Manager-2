@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int kokain;
     [SerializeField] private int bubatz;
     [SerializeField] private int heroin;
+
+    [SerializeField] private int schulden;
 
     [SerializeField] private bool haus1;
     [SerializeField] private bool haus2;
@@ -41,6 +45,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text bubatzanzeige;
     [SerializeField] private TMP_Text heroinanzeige;
     [SerializeField] private TMP_Text tischAnzeige;
+    [SerializeField] private TMP_Text schuldenAnzeige;
+
+    [SerializeField] private TMP_InputField schuldenInput;
 
     [SerializeField] private MonoBehaviour player;
     [SerializeField] private GameObject crosshair;
@@ -59,13 +66,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus1LaborObject;
     [SerializeField] private GameObject haus1AngestellterPanel;
     [SerializeField] private GameObject saveButton;
+    [SerializeField] private GameObject bankPanel;
+    [SerializeField] private GameObject[] darlehenButtons;
 
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus1;
-
-    [SerializeField] private bool kokainSold = false;
-    [SerializeField] private bool bubatzSold = false;
-    [SerializeField] private bool heroinSold = false;
-
 
     private Data data;
 
@@ -97,6 +101,8 @@ public class GameManager : MonoBehaviour
         data.bubatz = bubatz;
         data.heroin = heroin;
 
+        data.schulden = schulden;
+
         data.haus1 = haus1;
         data.haus2 = haus2;
         data.haus3 = haus3;
@@ -121,6 +127,8 @@ public class GameManager : MonoBehaviour
         kokain = data.kokain;
         bubatz = data.bubatz;
         heroin = data.heroin;
+
+        schulden = data.schulden;
 
         haus1 = data.haus1;
         haus2 = data.haus2;
@@ -185,6 +193,8 @@ public class GameManager : MonoBehaviour
     public void AnzeigeUpdate()
     {
         geldanzeige.text = geld.ToString() + "$";
+
+        schuldenAnzeige.text = schulden.ToString() + "$";
 
         kokainanzeige.text = "Kokain: " + kokain.ToString() + "g";
         bubatzanzeige.text = "Bubatz: " + bubatz.ToString() + "stk";
@@ -256,6 +266,13 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 player.enabled = true;
             }
+            else if (bankPanel.activeSelf)
+            {
+                bankPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                player.enabled = true;
+            }
             else
             {
                 if (menu.activeSelf)
@@ -275,28 +292,45 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!verkaufMenu.activeSelf)
-        {
-            kokainSold = false;
-            bubatzSold = false;
-            heroinSold = false;
-        }
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (handy.activeSelf)
+            if (!menu.activeSelf)
             {
-                handy.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                player.enabled = true;
+                if (handy.activeSelf)
+                {
+                    handy.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    player.enabled = true;
+                }
+                else
+                {
+                    handy.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    player.enabled = false;
+                }
             }
-            else
+        }
+
+        if (menu.activeSelf && handy.activeSelf)
+        {
+            menu.SetActive(false);
+            handy.SetActive(false);
+        }
+
+        if (schulden > 0)
+        {
+            foreach (GameObject gameobject in darlehenButtons)
             {
-                handy.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                player.enabled = false;
+                gameobject.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject gameobject in darlehenButtons)
+            {
+                gameobject.SetActive(true);
             }
         }
     }
@@ -355,7 +389,6 @@ public class GameManager : MonoBehaviour
         {
             kokain -= 10;
             geld += 40;
-            kokainSold = true;
         }
     }
 
@@ -365,7 +398,6 @@ public class GameManager : MonoBehaviour
         {
             bubatz -= 1;
             geld += 20;
-            bubatzSold = true;  
         }
     }
 
@@ -375,7 +407,6 @@ public class GameManager : MonoBehaviour
         {
             heroin -= 1;
             geld += 70;
-            heroinSold = true;
         }
     }
 
@@ -488,6 +519,50 @@ public class GameManager : MonoBehaviour
         {
             splineAnimateVerkäuferHaus1.Restart(true);
             splineAnimateVerkäuferHaus1.Play();
+        }
+    }
+
+    public void Darlehen1()
+    {
+        if(geld >= 3000)
+        {
+            schulden += (int)(10000 * 1.1);
+            geld += 10000;
+        }
+    }
+
+    public void Darlehen2()
+    {
+        if(geld >= 10000)
+        {
+            schulden += (int)(25000 * 1.25);
+            geld += 25000;
+        }
+    }
+
+    public void Darlehen3()
+    {
+        if(geld >= 50000)
+        {
+            schulden += (int)(100000 * 1.5);
+            geld += 100000;
+        }
+    }
+
+    public void SchuldenBezahlen()
+    {
+        string input = schuldenInput.text;
+
+        int schuldenBetrag;
+        bool isNumeric = int.TryParse(input, out schuldenBetrag);
+
+        if (isNumeric)
+        {
+            if(schuldenBetrag <= geld && schuldenBetrag <= schulden)
+            {
+                geld -= schuldenBetrag;
+                schulden -= schuldenBetrag;
+            }
         }
     }
 }
