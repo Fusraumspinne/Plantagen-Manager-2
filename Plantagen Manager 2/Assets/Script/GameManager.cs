@@ -11,9 +11,16 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Spielmodi")]
+    [Space(5)]
+
     public bool neuesGame;
     public bool gameLaden;
     public bool browserGame;
+
+    [Space(5)]
+    [Header("Spielstand")]
+    [Space(5)]
 
     [SerializeField] private int geld;
     [SerializeField] private int kokain;
@@ -32,13 +39,54 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool haus1Angestellter2;
     [SerializeField] private bool haus1Labor;
 
-    [SerializeField] private GameObject haus1Schild;
-    [SerializeField] private GameObject haus2Schild;
-    [SerializeField] private GameObject haus3Schild;
+    [Space(5)]
+    [Header("Spielwelt Objekte")]
+    [Space(5)]
 
+    [SerializeField] private MonoBehaviour player;
+    [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject DrogenAnkauf;
+    [SerializeField] private GameObject verkaufMenu;
+    [SerializeField] private GameObject saveButton;
+    [SerializeField] private GameObject bankPanel;
+    [SerializeField] private GameObject[] darlehenButtons;
+    [SerializeField] private GameObject handy;
+    [SerializeField] private GameObject häuserPanel;
+
+    [Space(5)]
+    [Header("Haus1")]
+    [Space(5)]
+
+    [SerializeField] private GameObject haus1Schild;
     [SerializeField] private GameObject haus1Tür;
+    [SerializeField] private GameObject haus1Panel;
+    [SerializeField] private GameObject[] tischeObject;
+    [SerializeField] private GameObject verpackstationHaus1Object;
+    [SerializeField] private GameObject angestellter1Haus1Object;
+    [SerializeField] private GameObject angestellter2Haus1Object;
+    [SerializeField] private GameObject haus1LaborObject;
+    [SerializeField] private GameObject haus1AngestellterPanel;
+
+    [Space(5)]
+    [Header("Haus2")]
+    [Space(5)]
+
+    [SerializeField] private GameObject haus2Schild;
     [SerializeField] private GameObject haus2Tür;
+    [SerializeField] private GameObject haus2Panel;
+
+    [Space(5)]
+    [Header("Haus3")]
+    [Space(5)]
+
+    [SerializeField] private GameObject haus3Schild;
     [SerializeField] private GameObject haus3Tür;
+    [SerializeField] private GameObject haus3Panel;
+
+    [Space(5)]
+    [Header("Anzeigen")]
+    [Space(5)]
 
     [SerializeField] private TMP_Text geldanzeige;
     [SerializeField] private TMP_Text kokainanzeige;
@@ -47,29 +95,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text tischAnzeige;
     [SerializeField] private TMP_Text schuldenAnzeige;
 
+    [Space(5)]
+    [Header("Inputfelder")]
+    [Space(5)]
+
     [SerializeField] private TMP_InputField schuldenInput;
 
-    [SerializeField] private MonoBehaviour player;
-    [SerializeField] private GameObject crosshair;
-    [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject DrogenAnkauf;
-    [SerializeField] private GameObject verkaufMenu;
-    [SerializeField] private GameObject haus1Panel;
-    [SerializeField] private GameObject haus2Panel;
-    [SerializeField] private GameObject haus3Panel;
-    [SerializeField] private GameObject handy;
-    [SerializeField] private GameObject häuserPanel;
-    [SerializeField] private GameObject[] tischeObject;
-    [SerializeField] private GameObject verpackstationHaus1Object;
-    [SerializeField] private GameObject angestellter1Haus1Object;
-    [SerializeField] private GameObject angestellter2Haus1Object;
-    [SerializeField] private GameObject haus1LaborObject;
-    [SerializeField] private GameObject haus1AngestellterPanel;
-    [SerializeField] private GameObject saveButton;
-    [SerializeField] private GameObject bankPanel;
-    [SerializeField] private GameObject[] darlehenButtons;
+    [Space(5)]
+    [Header("Spline Animate")]
+    [Space(5)]
 
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus1;
+
+    [Space(5)]
+    [Header("Cooldowns")]
+    [Space(5)]
 
     [SerializeField] private float cooldownTime;
     private float lastTriggerTime;
@@ -150,7 +190,9 @@ public class GameManager : MonoBehaviour
     {
         AnzeigeUpdate();
 
-        MenuHandler();
+        UIHandler();
+
+        SpielweltHandler();
 
         ÜbergreifendeValueÄnderungenHandler();
 
@@ -206,7 +248,7 @@ public class GameManager : MonoBehaviour
         heroinanzeige.text = "Heroin: " + heroin.ToString() + "stk";
     }
 
-    public void MenuHandler()
+    public void UIHandler()
     {
         if (DrogenAnkauf.activeSelf || verkaufMenu.activeSelf || haus1Panel.activeSelf || haus2Panel.activeSelf || menu.activeSelf)
         {
@@ -217,22 +259,25 @@ public class GameManager : MonoBehaviour
             crosshair.SetActive(true);
         }
 
-        if (haus1)
+        if (menu.activeSelf && handy.activeSelf)
         {
-            haus1Schild.SetActive(false);
-            haus1Tür.SetActive(true);
+            menu.SetActive(false);
+            handy.SetActive(false);
         }
 
-        if (haus2)
+        if (schulden > 0)
         {
-            haus2Schild.SetActive(false);
-            haus2Tür.SetActive(true);
+            foreach (GameObject gameobject in darlehenButtons)
+            {
+                gameobject.SetActive(false);
+            }
         }
-
-        if (haus3)
+        else
         {
-            haus3Schild.SetActive(false);
-            haus3Tür.SetActive(true);
+            foreach (GameObject gameobject in darlehenButtons)
+            {
+                gameobject.SetActive(true);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -317,26 +362,26 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (menu.activeSelf && handy.activeSelf)
+    public void SpielweltHandler()
+    {
+        if (haus1)
         {
-            menu.SetActive(false);
-            handy.SetActive(false);
+            haus1Schild.SetActive(false);
+            haus1Tür.SetActive(true);
         }
 
-        if (schulden > 0)
+        if (haus2)
         {
-            foreach (GameObject gameobject in darlehenButtons)
-            {
-                gameobject.SetActive(false);
-            }
+            haus2Schild.SetActive(false);
+            haus2Tür.SetActive(true);
         }
-        else
+
+        if (haus3)
         {
-            foreach (GameObject gameobject in darlehenButtons)
-            {
-                gameobject.SetActive(true);
-            }
+            haus3Schild.SetActive(false);
+            haus3Tür.SetActive(true);
         }
     }
 
@@ -358,6 +403,28 @@ public class GameManager : MonoBehaviour
             Destroy(tausendObject);
 
             geld += 1000;
+        }
+    }
+
+    public void SchuldenAutomatischBezahlen()
+    {
+        if (Time.time > lastTriggerTime + cooldownTime)
+        {
+            if (schulden > 0)
+            {
+                if (schulden < (int)(geld * 0.1))
+                {
+                    geld -= schulden;
+                    schulden -= schulden;
+                }
+                else if (schulden >= (int)(geld * 0.1))
+                {
+                    schulden -= (int)(geld * 0.1);
+                    geld -= (int)(geld * 0.1);
+                }
+            }
+
+            lastTriggerTime = Time.time;
         }
     }
 
@@ -568,28 +635,6 @@ public class GameManager : MonoBehaviour
                 geld -= schuldenBetrag;
                 schulden -= schuldenBetrag;
             }
-        }
-    }
-
-    public void SchuldenAutomatischBezahlen()
-    {
-        if (Time.time > lastTriggerTime + cooldownTime)
-        {
-            if(schulden > 0)
-            {
-                if(schulden < (int)(geld * 0.1))
-                {
-                    geld -= schulden;
-                    schulden -= schulden;
-                }
-                else if(schulden >= (int)(geld * 0.1))
-                {
-                    schulden -= (int)(geld * 0.1);
-                    geld -= (int)(geld * 0.1);
-                }
-            }
-
-            lastTriggerTime = Time.time;
         }
     }
 }
