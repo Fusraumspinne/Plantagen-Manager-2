@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus1;
 
+    [SerializeField] private float cooldownTime;
+    private float lastTriggerTime;
+
     private Data data;
 
     void Start()
@@ -150,6 +153,8 @@ public class GameManager : MonoBehaviour
         MenuHandler();
 
         ÜbergreifendeValueÄnderungenHandler();
+
+        SchuldenAutomatischBezahlen();
     }
 
     IEnumerator DelayAndDeactivate()
@@ -563,6 +568,28 @@ public class GameManager : MonoBehaviour
                 geld -= schuldenBetrag;
                 schulden -= schuldenBetrag;
             }
+        }
+    }
+
+    public void SchuldenAutomatischBezahlen()
+    {
+        if (Time.time > lastTriggerTime + cooldownTime)
+        {
+            if(schulden > 0)
+            {
+                if(schulden < (int)(geld * 0.1))
+                {
+                    geld -= schulden;
+                    schulden -= schulden;
+                }
+                else if(schulden >= (int)(geld * 0.1))
+                {
+                    schulden -= (int)(geld * 0.1);
+                    geld -= (int)(geld * 0.1);
+                }
+            }
+
+            lastTriggerTime = Time.time;
         }
     }
 }
