@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] darlehenButtons;
     [SerializeField] private GameObject handy;
     [SerializeField] private GameObject häuserPanel;
+    [SerializeField] private GameObject einstellungenPanel;
+    [SerializeField] private GameObject steuerungsPanel;
 
     [Space(5)]
     [Header("Haus1")]
@@ -94,6 +96,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text heroinanzeige;
     [SerializeField] private TMP_Text tischAnzeige;
     [SerializeField] private TMP_Text schuldenAnzeige;
+    [SerializeField] private TMP_Text sensAnzeige;
 
     [Space(5)]
     [Header("Inputfelder")]
@@ -114,6 +117,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float cooldownTime;
     private float lastTriggerTime;
 
+    [Space(5)]
+    [Header("Slider")]
+    [Space(5)]
+
+    [SerializeField] private Slider slider;
+
     private Data data;
 
     void Start()
@@ -132,6 +141,14 @@ public class GameManager : MonoBehaviour
         if (gameLaden)
         {
             LoadFromJson();
+        }
+
+        if (PlayerPrefs.HasKey("MouseSens"))
+        {
+            float savedValue = PlayerPrefs.GetFloat("MouseSens");
+            slider.value = savedValue;
+
+            sensAnzeige.text = savedValue.ToString();
         }
     }
 
@@ -323,6 +340,16 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 player.enabled = true;
             }
+            else if (einstellungenPanel.activeSelf)
+            {
+                einstellungenPanel.SetActive(false);
+                menu.SetActive(true);
+            }
+            else if (steuerungsPanel.activeSelf)
+            {
+                steuerungsPanel.SetActive(false);
+                menu.SetActive(true);
+            }
             else
             {
                 if (menu.activeSelf)
@@ -426,6 +453,15 @@ public class GameManager : MonoBehaviour
 
             lastTriggerTime = Time.time;
         }
+    }
+
+    public void OnSliderValueChanged()
+    {
+        float roundedValue = Mathf.Round(slider.value * 100f) / 100f;
+        PlayerPrefs.SetFloat("MouseSens", roundedValue);
+        PlayerPrefs.Save();
+
+        sensAnzeige.text = roundedValue.ToString();
     }
 
     public void BuyKokain()
@@ -636,5 +672,17 @@ public class GameManager : MonoBehaviour
                 schulden -= schuldenBetrag;
             }
         }
+    }
+
+    public void Einstellungen()
+    {
+        einstellungenPanel.SetActive(true);
+        menu.SetActive(false);
+    }
+
+    public void Steuerung()
+    {
+        steuerungsPanel.SetActive(true);
+        menu.SetActive(false);
     }
 }

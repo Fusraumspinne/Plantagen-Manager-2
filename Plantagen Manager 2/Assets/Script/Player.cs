@@ -60,6 +60,12 @@ public class Player : MonoBehaviour
     {
         MyInput();
         Look();
+
+        if (PlayerPrefs.HasKey("MouseSens"))
+        {
+            float savedValue = PlayerPrefs.GetFloat("MouseSens");
+            sensMultiplier = savedValue;
+        }
     }
 
     private void MyInput()

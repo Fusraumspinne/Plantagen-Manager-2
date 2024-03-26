@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,10 +13,26 @@ public class Hauptmenu : MonoBehaviour
 
     [SerializeField] private Slider slider;
 
+    [SerializeField] private TMP_Text sensAnzeige;
+
     public void OnSliderValueChanged()
     {
         float roundedValue = Mathf.Round(slider.value * 100f) / 100f;
-        Debug.Log("Aktueller Slider-Wert: " + roundedValue);
+        PlayerPrefs.SetFloat("MouseSens", roundedValue);
+        PlayerPrefs.Save();
+
+        sensAnzeige.text = roundedValue.ToString();
+    }
+
+    public void Start()
+    {
+        if (PlayerPrefs.HasKey("MouseSens"))
+        {
+            float savedValue = PlayerPrefs.GetFloat("MouseSens");
+            slider.value = savedValue;
+
+            sensAnzeige.text = savedValue.ToString();
+        }
     }
 
     public void Update()
@@ -52,6 +69,7 @@ public class Hauptmenu : MonoBehaviour
         PlayerPrefs.SetInt("NeuesGame", 1);
         PlayerPrefs.SetInt("GameLaden", 0);
         PlayerPrefs.SetInt("BrowserGame", 0);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(1);
     }
 
@@ -60,6 +78,7 @@ public class Hauptmenu : MonoBehaviour
         PlayerPrefs.SetInt("NeuesGame", 0);
         PlayerPrefs.SetInt("GameLaden", 1);
         PlayerPrefs.SetInt("BrowserGame", 0);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(1);
     }
 
@@ -68,6 +87,7 @@ public class Hauptmenu : MonoBehaviour
         PlayerPrefs.SetInt("NeuesGame", 0);
         PlayerPrefs.SetInt("GameLaden", 0);
         PlayerPrefs.SetInt("BrowserGame", 1);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(1);
     }
 
