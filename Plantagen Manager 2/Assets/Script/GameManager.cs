@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool haus1Angestellter1;
     [SerializeField] private bool haus1Angestellter2;
     [SerializeField] private bool haus1Labor;
+    [SerializeField] private bool haus1SchwarzLicht;
 
     [Space(5)]
     [Header("Spielwelt Objekte")]
@@ -69,6 +70,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject angestellter2Haus1Object;
     [SerializeField] private GameObject haus1LaborObject;
     [SerializeField] private GameObject haus1AngestellterPanel;
+    [SerializeField] private GameObject haus1SchwarzLichtObject;
+    [SerializeField] private GameObject haus1SchwarzLichtTrigger;
 
     [Space(5)]
     [Header("Haus2")]
@@ -123,6 +126,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Slider slider;
 
+    [Space(5)]
+    [Header("SpawnPoint")]
+    [Space(5)]
+
+    [SerializeField] private GameObject spawnPoint;
+
     private Data data;
 
     void Start()
@@ -172,6 +181,7 @@ public class GameManager : MonoBehaviour
         data.haus1Angestellter1 = haus1Angestellter1;
         data.haus1Angestellter2 = haus1Angestellter2;
         data.haus1Labor = haus1Labor;
+        data.haus1SchwarzLicht = haus1SchwarzLicht;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(Application.dataPath + "/Data.json", json);
@@ -199,6 +209,7 @@ public class GameManager : MonoBehaviour
         haus1Angestellter1 = data.haus1Angestellter1;
         haus1Angestellter2 = data.haus1Angestellter2;
         haus1Labor = data.haus1Labor;
+        haus1SchwarzLicht = data.haus1SchwarzLicht;
 
         Aktualisieren();
     }
@@ -251,6 +262,14 @@ public class GameManager : MonoBehaviour
         if (haus1Labor == true)
         {
             haus1LaborObject.SetActive(true);
+        }
+
+        if(haus1SchwarzLicht == true)
+        {
+            haus1SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus1SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
         }
     }
 
@@ -603,6 +622,20 @@ public class GameManager : MonoBehaviour
 
             haus1LaborObject.SetActive(true);
         }
+    }
+
+    public void BuySchwarzLichtHaus1()
+    {
+        if(geld >= 20000 && haus1SchwarzLicht == false)
+        {
+            haus1SchwarzLicht = true;
+            geld -= 20000;
+
+            haus1SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus1SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
+        } 
     }
 
     public void KokainVerkaufenAngestellter()

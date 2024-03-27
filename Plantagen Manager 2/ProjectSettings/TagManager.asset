@@ -10,6 +10,7 @@ TagManager:
   - Angestellter
   - KokainTrigger
   - 1K
+  - SchwarzLichHaus1Trigger
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
+  - Bloom
   - 
   - 
   - 
