@@ -17,6 +17,9 @@ public class KokainAnpflanze : MonoBehaviour
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject kokainBündel;
 
+    [SerializeField] private string tagTrigger;
+    [SerializeField] private bool schwarzlicht;
+
     [SerializeField] private float cooldownTime;
     private float lastTriggerTime;
 
@@ -103,6 +106,25 @@ public class KokainAnpflanze : MonoBehaviour
                     gameobject.SetActive(false);
                 }
             }
+        }
+
+        GameObject[] schwarzLichtTriggerObjects = GameObject.FindGameObjectsWithTag(tagTrigger);
+
+        foreach (GameObject schwarzLichtTriggerObject in schwarzLichtTriggerObjects)
+        {
+            Destroy(schwarzLichtTriggerObject);
+
+            if (!schwarzlicht)
+            {
+                cooldownTime /= 2;
+
+                foreach (Animator animator in kokainpflanzeAnimator)
+                {
+                    animator.speed = 2f;
+                }
+            }
+
+            schwarzlicht = true;
         }
     }
 
