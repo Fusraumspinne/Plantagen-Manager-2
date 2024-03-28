@@ -450,6 +450,15 @@ public class GameManager : MonoBehaviour
 
             geld += 1000;
         }
+
+        GameObject[] bündelObjecte = GameObject.FindGameObjectsWithTag("150");
+
+        foreach (GameObject bündelObject in bündelObjecte)
+        {
+            Destroy(bündelObject);
+
+            geld += 150;
+        }
     }
 
     public void SchuldenAutomatischBezahlen()

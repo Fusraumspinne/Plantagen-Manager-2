@@ -11,6 +11,7 @@ TagManager:
   - KokainTrigger
   - 1K
   - SchwarzLichHaus1Trigger
+  - 150
   layers:
   - Default
   - TransparentFX
