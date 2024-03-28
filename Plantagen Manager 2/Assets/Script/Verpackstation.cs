@@ -10,7 +10,7 @@ public class Verpackstation : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bündel"))
+        if (other.CompareTag("Bündel") || (other.CompareTag("BündelAbholbar")))
         {
             Destroy(other.gameObject);
             kokainBündel++;

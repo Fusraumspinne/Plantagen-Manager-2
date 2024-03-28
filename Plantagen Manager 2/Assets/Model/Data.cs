@@ -18,4 +18,5 @@ public class Data
     public bool haus1Angestellter2;
     public bool haus1Labor;
     public bool haus1SchwarzLicht;
+    public bool haus1Drohne;
 }

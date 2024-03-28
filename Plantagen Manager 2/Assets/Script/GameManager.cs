@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool haus1Angestellter2;
     [SerializeField] private bool haus1Labor;
     [SerializeField] private bool haus1SchwarzLicht;
+    [SerializeField] private bool haus1Drohne;
 
     [Space(5)]
     [Header("Spielwelt Objekte")]
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject häuserPanel;
     [SerializeField] private GameObject einstellungenPanel;
     [SerializeField] private GameObject steuerungsPanel;
+    [SerializeField] private GameObject drohnePanel;
 
     [Space(5)]
     [Header("Haus1")]
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus1AngestellterPanel;
     [SerializeField] private GameObject haus1SchwarzLichtObject;
     [SerializeField] private GameObject haus1SchwarzLichtTrigger;
+    [SerializeField] private GameObject drohneHaus1;
 
     [Space(5)]
     [Header("Haus2")]
@@ -182,6 +185,7 @@ public class GameManager : MonoBehaviour
         data.haus1Angestellter2 = haus1Angestellter2;
         data.haus1Labor = haus1Labor;
         data.haus1SchwarzLicht = haus1SchwarzLicht;
+        data.haus1Drohne = haus1Drohne;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(Application.dataPath + "/Data.json", json);
@@ -210,6 +214,7 @@ public class GameManager : MonoBehaviour
         haus1Angestellter2 = data.haus1Angestellter2;
         haus1Labor = data.haus1Labor;
         haus1SchwarzLicht = data.haus1SchwarzLicht;
+        haus1Drohne = data.haus1Drohne;
 
         Aktualisieren();
     }
@@ -270,6 +275,11 @@ public class GameManager : MonoBehaviour
 
             GameObject spawnedObject = Instantiate(haus1SchwarzLichtTrigger, spawnPoint.transform);
             spawnedObject.transform.localPosition = Vector3.zero;
+        }
+
+        if(haus1Drohne == true)
+        {
+            drohneHaus1.SetActive(true);
         }
     }
 
@@ -368,6 +378,13 @@ public class GameManager : MonoBehaviour
             {
                 steuerungsPanel.SetActive(false);
                 menu.SetActive(true);
+            }
+            else if(drohnePanel.activeSelf)
+            {
+                drohnePanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                player.enabled = true;
             }
             else
             {
@@ -645,6 +662,17 @@ public class GameManager : MonoBehaviour
             GameObject spawnedObject = Instantiate(haus1SchwarzLichtTrigger, spawnPoint.transform);
             spawnedObject.transform.localPosition = Vector3.zero;
         } 
+    }
+
+    public void BuyDrohneHaus1()
+    {
+        if(geld >= 30000 && haus1Drohne == false)
+        {
+            haus1Drohne = true;
+            geld -= 30000;
+
+            drohneHaus1.SetActive(true);
+        }
     }
 
     public void KokainVerkaufenAngestellter()

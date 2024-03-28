@@ -4,7 +4,8 @@ public class ObjectSnap : MonoBehaviour
 {
     [SerializeField] private bool active = false;
     [SerializeField] private bool tp = false;
-    [SerializeField] private Transform targetObject;
+    [SerializeField] private string targetTag = "Drag"; 
+    private GameObject targetObject; 
     [SerializeField] private Rigidbody rb;
 
     public void OnTriggerEnter(Collider other)
@@ -33,7 +34,8 @@ public class ObjectSnap : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(1)){
+        if (Input.GetMouseButton(1))
+        {
             rb.isKinematic = true;
             tp = false;
             rb.isKinematic = false;
@@ -47,6 +49,14 @@ public class ObjectSnap : MonoBehaviour
 
     private void TeleportObject()
     {
-        transform.position = targetObject.position;
+        if (targetObject != null) 
+        {
+            transform.position = targetObject.transform.position;
+        }
+    }
+
+    private void Start()
+    {
+        targetObject = GameObject.FindGameObjectWithTag(targetTag);
     }
 }
