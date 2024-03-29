@@ -1,9 +1,9 @@
 {
-    "geld": 120090,
-    "kokain": 0,
+    "geld": 69090,
+    "kokain": 1400,
     "bubatz": 10,
     "heroin": 3,
-    "schulden": 8000,
+    "schulden": 0,
     "haus1": true,
     "haus2": true,
     "haus3": true,
@@ -12,5 +12,6 @@
     "haus1Angestellter1": true,
     "haus1Angestellter2": true,
     "haus1Labor": true,
-    "haus1SchwarzLicht": true
+    "haus1SchwarzLicht": true,
+    "haus1Drohne": true
 }

@@ -13,6 +13,7 @@ public class KokainAnpflanze : MonoBehaviour
     [SerializeField] private bool ernten = false;
     [SerializeField] private bool wachsen = false;
     [SerializeField] private bool clear = true;
+    [SerializeField] private bool geupgradet;
 
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject kokainBündel;
@@ -64,6 +65,11 @@ public class KokainAnpflanze : MonoBehaviour
 
             e.SetActive(false);
         }
+
+        if (other.CompareTag("Angestellter"))
+        {
+            Angestellter();
+        }
     }
 
     public void Update()
@@ -114,17 +120,19 @@ public class KokainAnpflanze : MonoBehaviour
         {
             Destroy(schwarzLichtTriggerObject);
 
-            if (!schwarzlicht)
-            {
-                cooldownTime /= 2;
+            schwarzlicht = true;
+        }
 
-                foreach (Animator animator in kokainpflanzeAnimator)
-                {
-                    animator.speed = 2f;
-                }
+        if(!geupgradet && schwarzlicht && !wachsen)
+        {
+            cooldownTime /= 2;
+
+            foreach (Animator animator in kokainpflanzeAnimator)
+            {
+                animator.speed = 2f;
             }
 
-            schwarzlicht = true;
+            geupgradet = true;
         }
     }
 
