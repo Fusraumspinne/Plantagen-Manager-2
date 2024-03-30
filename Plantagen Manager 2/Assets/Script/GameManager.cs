@@ -608,10 +608,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyVerpackstationHaus1()
     {
-        if (geld >= 10000 && haus1Verpackstation == false)
+        if (geld >= 7500 && haus1Verpackstation == false)
         {
             haus1Verpackstation = true;
-            geld -= 10000;
+            geld -= 7500;
 
             verpackstationHaus1Object.SetActive(true);  
         }
@@ -619,10 +619,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyAngestellter1Haus1()
     {
-        if(geld >= 15000 && haus1Angestellter1 == false)
+        if(geld >= 10000 && haus1Angestellter1 == false)
         {
             haus1Angestellter1 = true;
-            geld -= 15000;
+            geld -= 10000;
 
             angestellter1Haus1Object.SetActive(true);
         }
@@ -630,10 +630,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyAngestellter2Haus1()
     {
-        if(geld >= 25000 && haus1Angestellter2 == false)
+        if(geld >= 15000 && haus1Angestellter2 == false)
         {
             haus1Angestellter2 = true;
-            geld -= 25000;
+            geld -= 15000;
 
             angestellter2Haus1Object.SetActive(true);
         }
@@ -641,10 +641,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyLaborHaus1()
     {
-        if(geld >= 20000 && haus1Labor == false)
+        if(geld >= 10000 && haus1Labor == false)
         {
             haus1Labor = true;
-            geld -= 20000;
+            geld -= 10000;
 
             haus1LaborObject.SetActive(true);
         }
@@ -652,10 +652,10 @@ public class GameManager : MonoBehaviour
 
     public void BuySchwarzLichtHaus1()
     {
-        if(geld >= 20000 && haus1SchwarzLicht == false)
+        if(geld >= 15000 && haus1SchwarzLicht == false)
         {
             haus1SchwarzLicht = true;
-            geld -= 20000;
+            geld -= 15000;
 
             haus1SchwarzLichtObject.SetActive(true);
 
@@ -666,10 +666,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyDrohneHaus1()
     {
-        if(geld >= 30000 && haus1Drohne == false)
+        if(geld >= 20000 && haus1Drohne == false)
         {
             haus1Drohne = true;
-            geld -= 30000;
+            geld -= 20000;
 
             drohneHaus1.SetActive(true);
         }
