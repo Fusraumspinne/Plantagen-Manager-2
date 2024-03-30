@@ -615,10 +615,10 @@ public class GameManager : MonoBehaviour
 
     public void BuyHaus1()
     {
-        if(geld >= 15000 && !haus1)
+        if(geld >= 10000 && !haus1)
         {
             haus1 = true;
-            geld -= 15000;
+            geld -= 10000;
         }
     }
 
