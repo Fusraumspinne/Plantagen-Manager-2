@@ -76,6 +76,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus1SchwarzLichtTrigger;
     [SerializeField] private GameObject drohneHaus1;
 
+    [SerializeField] private GameObject tischeHaus1Btn;
+    [SerializeField] private GameObject verpackstationHaus1Btn;
+    [SerializeField] private GameObject laborHaus1Btn;
+    [SerializeField] private GameObject drohneHaus1Btn;
+    [SerializeField] private GameObject schwarzLichtHaus1Btn;
+    [SerializeField] private GameObject angestellter1Haus1Btn;
+    [SerializeField] private GameObject angestellter2Haus1Btn;
+
     [Space(5)]
     [Header("Haus2")]
     [Space(5)]
@@ -98,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TMP_Text geldanzeige;
     [SerializeField] private TMP_Text kokainanzeige;
+    [SerializeField] private TMP_Text kokainanzeigeAngestellter;
     [SerializeField] private TMP_Text bubatzanzeige;
     [SerializeField] private TMP_Text heroinanzeige;
     [SerializeField] private TMP_Text tischAnzeige;
@@ -230,6 +239,8 @@ public class GameManager : MonoBehaviour
         ÜbergreifendeValueÄnderungenHandler();
 
         SchuldenAutomatischBezahlen();
+
+        UpgradePanelUpdate();
     }
 
     IEnumerator DelayAndDeactivate()
@@ -290,6 +301,7 @@ public class GameManager : MonoBehaviour
         schuldenAnzeige.text = schulden.ToString() + "$";
 
         kokainanzeige.text = "Kokain: " + kokain.ToString() + "g";
+        kokainanzeigeAngestellter.text = "Kokain: " + kokain.ToString() + "g";
         bubatzanzeige.text = "Bubatz: " + bubatz.ToString() + "stk";
         heroinanzeige.text = "Heroin: " + heroin.ToString() + "stk";
     }
@@ -497,6 +509,44 @@ public class GameManager : MonoBehaviour
             }
 
             lastTriggerTime = Time.time;
+        }
+    }
+
+    public void UpgradePanelUpdate()
+    {
+        if(tische == 13)
+        {
+            tischeHaus1Btn.SetActive(false);
+        }
+
+        if(haus1Verpackstation == true)
+        {
+            verpackstationHaus1Btn.SetActive(false);
+        }
+
+        if(haus1Labor == true)
+        {
+            laborHaus1Btn.SetActive(false);
+        }
+
+        if(haus1SchwarzLicht == true)
+        {
+            schwarzLichtHaus1Btn.SetActive(false);
+        }
+
+        if(haus1Drohne == true)
+        {
+            drohneHaus1Btn.SetActive(false);
+        }
+
+        if(haus1Angestellter1 == true)
+        {
+            angestellter1Haus1Btn.SetActive(false);
+        }
+
+        if(haus1Angestellter2 == true)
+        {
+            angestellter2Haus1Btn.SetActive(false);
         }
     }
 
