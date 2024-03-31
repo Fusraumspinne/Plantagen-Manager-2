@@ -33,13 +33,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool haus2;
     [SerializeField] private bool haus3;   
 
-    [SerializeField] private int tische;
+    [SerializeField] private int haus1Tische;
     [SerializeField] private bool haus1Verpackstation;
     [SerializeField] private bool haus1Angestellter1;
     [SerializeField] private bool haus1Angestellter2;
     [SerializeField] private bool haus1Labor;
     [SerializeField] private bool haus1SchwarzLicht;
     [SerializeField] private bool haus1Drohne;
+
+    [SerializeField] private int haus2Tische;
+    [SerializeField] private bool haus2Verpackstation;
+    [SerializeField] private bool haus2Angestellter1;
+    [SerializeField] private bool haus2Angestellter2;
+    [SerializeField] private bool haus2Labor;
+    [SerializeField] private bool haus2SchwarzLicht;
+    [SerializeField] private bool haus2Drohne;
 
     [Space(5)]
     [Header("Spielwelt Objekte")]
@@ -188,13 +196,21 @@ public class GameManager : MonoBehaviour
         data.haus2 = haus2;
         data.haus3 = haus3;
 
-        data.tische = tische;
+        data.haus1Tische = haus1Tische;
         data.haus1Verpackstation = haus1Verpackstation;
         data.haus1Angestellter1 = haus1Angestellter1;
         data.haus1Angestellter2 = haus1Angestellter2;
         data.haus1Labor = haus1Labor;
         data.haus1SchwarzLicht = haus1SchwarzLicht;
         data.haus1Drohne = haus1Drohne;
+
+        data.haus2Tische = haus2Tische;
+        data.haus2Verpackstation = haus2Verpackstation;
+        data.haus2Angestellter1 = haus2Angestellter1;
+        data.haus2Angestellter2 = haus2Angestellter2;
+        data.haus2Labor = haus2Labor;
+        data.haus2SchwarzLicht = haus2SchwarzLicht;
+        data.haus2Drohne = haus2Drohne;
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(Application.dataPath + "/Data.json", json);
@@ -217,13 +233,21 @@ public class GameManager : MonoBehaviour
         haus2 = data.haus2;
         haus3 = data.haus3;
 
-        tische = data.tische;
+        haus1Tische = data.haus1Tische;
         haus1Verpackstation = data.haus1Verpackstation;
         haus1Angestellter1 = data.haus1Angestellter1;
         haus1Angestellter2 = data.haus1Angestellter2;
         haus1Labor = data.haus1Labor;
         haus1SchwarzLicht = data.haus1SchwarzLicht;
         haus1Drohne = data.haus1Drohne;
+
+        haus2Tische = data.haus2Tische;
+        haus2Verpackstation = data.haus2Verpackstation;
+        haus2Angestellter1 = data.haus2Angestellter1;
+        haus2Angestellter2 = data.haus2Angestellter2;
+        haus2Labor = data.haus2Labor;
+        haus2SchwarzLicht = data.haus2SchwarzLicht;
+        haus2Drohne = data.haus2Drohne;
 
         Aktualisieren();
     }
@@ -253,12 +277,12 @@ public class GameManager : MonoBehaviour
 
     public void Aktualisieren()
     {
-        for (int i = 0; i < tische; i++)
+        for (int i = 0; i < haus1Tische; i++)
         {
             tischeObject[i].SetActive(true);
         }
 
-        tischAnzeige.text = "Tische: " + tische + " weiteren kaufen für: 1000$";
+        tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
 
         if (haus1Verpackstation == true)
         {
@@ -514,7 +538,7 @@ public class GameManager : MonoBehaviour
 
     public void UpgradePanelUpdate()
     {
-        if(tische == 13)
+        if(haus1Tische == 13)
         {
             tischeHaus1Btn.SetActive(false);
         }
@@ -642,18 +666,18 @@ public class GameManager : MonoBehaviour
 
     public void BuyTisch()
     {
-        if(geld >= 1000 && tische < 13)
+        if(geld >= 1000 && haus1Tische < 13)
         {
-            tische++;
+            haus1Tische++;
             geld -= 1000;
 
-            for (int i = 0; i < tische; i++)
+            for (int i = 0; i < haus1Tische; i++)
             {
                 tischeObject[i].SetActive(true);
             }
         }
 
-        tischAnzeige.text = "Tische: " + tische + " weiteren kaufen für: 1000$";
+        tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
     }
 
     public void BuyVerpackstationHaus1()

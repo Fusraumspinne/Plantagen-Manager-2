@@ -1,17 +1,24 @@
 {
-    "geld": 585400,
+    "geld": 454900,
     "kokain": 1400,
     "bubatz": 10,
     "heroin": 3,
     "schulden": 0,
     "haus1": true,
-    "haus2": false,
+    "haus2": true,
     "haus3": false,
-    "tische": 13,
+    "haus1Tische": 13,
     "haus1Verpackstation": true,
     "haus1Angestellter1": true,
     "haus1Angestellter2": true,
     "haus1Labor": true,
     "haus1SchwarzLicht": true,
-    "haus1Drohne": true
+    "haus1Drohne": true,
+    "haus2Tische": 0,
+    "haus2Verpackstation": false,
+    "haus2Angestellter1": false,
+    "haus2Angestellter2": false,
+    "haus2Labor": false,
+    "haus2SchwarzLicht": false,
+    "haus2Drohne": false
 }

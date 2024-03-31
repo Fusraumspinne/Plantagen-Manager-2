@@ -16,6 +16,8 @@ TagManager:
   - Lager
   - Verpackstation
   - Labor
+  - "CannabisB\xFCndelAbholbar"
+  - "CannabisB\xFCndel"
   layers:
   - Default
   - TransparentFX
