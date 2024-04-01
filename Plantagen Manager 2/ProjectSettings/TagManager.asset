@@ -18,6 +18,8 @@ TagManager:
   - Labor
   - "CannabisB\xFCndelAbholbar"
   - "CannabisB\xFCndel"
+  - BubatzTrigger
+  - CannabisBox
   layers:
   - Default
   - TransparentFX

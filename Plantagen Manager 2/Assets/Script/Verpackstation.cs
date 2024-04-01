@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class Verpackstation : MonoBehaviour
 {
-    [SerializeField] private int kokainBündel;
-    [SerializeField] private GameObject kokainBox;
+    [SerializeField] private int bündel;
+    [SerializeField] private GameObject box;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private string objectTag1;
+    [SerializeField] private string objectTag2;
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bündel") || (other.CompareTag("BündelAbholbar")))
+        if (other.CompareTag(objectTag1) || other.CompareTag(objectTag2))
         {
             Destroy(other.gameObject);
-            kokainBündel++;
+            bündel++;
         }
     }
 
     public void Update()
     {
-        if(kokainBündel >= 5) 
+        if(bündel >= 5) 
         {
-            kokainBündel -= 5;
+            bündel -= 5;
 
-            GameObject spawnedObject = Instantiate(kokainBox, spawnPoint.transform);
+            GameObject spawnedObject = Instantiate(box, spawnPoint.transform);
             spawnedObject.transform.localPosition = Vector3.zero;
         }
     }

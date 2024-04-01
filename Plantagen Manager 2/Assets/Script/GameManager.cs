@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus2Tür;
     [SerializeField] private GameObject haus2Panel;
 
+    [SerializeField] private GameObject haus2AngestellterPanel;
+
     [Space(5)]
     [Header("Haus3")]
     [Space(5)]
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text kokainanzeige;
     [SerializeField] private TMP_Text kokainanzeigeAngestellter;
     [SerializeField] private TMP_Text bubatzanzeige;
+    [SerializeField] private TMP_Text bubatzanzeigeAngesellter;
     [SerializeField] private TMP_Text heroinanzeige;
     [SerializeField] private TMP_Text tischAnzeige;
     [SerializeField] private TMP_Text schuldenAnzeige;
@@ -132,6 +135,7 @@ public class GameManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus1;
+    [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus2;
 
     [Space(5)]
     [Header("Cooldowns")]
@@ -282,8 +286,6 @@ public class GameManager : MonoBehaviour
             tischeObject[i].SetActive(true);
         }
 
-        tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
-
         if (haus1Verpackstation == true)
         {
             verpackstationHaus1Object.SetActive(true);
@@ -327,7 +329,10 @@ public class GameManager : MonoBehaviour
         kokainanzeige.text = "Kokain: " + kokain.ToString() + "g";
         kokainanzeigeAngestellter.text = "Kokain: " + kokain.ToString() + "g";
         bubatzanzeige.text = "Bubatz: " + bubatz.ToString() + "stk";
+        bubatzanzeigeAngesellter.text = "Bubatz: " + bubatz.ToString() + "stk";
         heroinanzeige.text = "Heroin: " + heroin.ToString() + "stk";
+
+        tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
     }
 
     public void UIHandler()
@@ -422,6 +427,13 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 player.enabled = true;
             }
+            else if (haus2AngestellterPanel.activeSelf)
+            {
+                haus2AngestellterPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                player.enabled = true;
+            }
             else
             {
                 if (menu.activeSelf)
@@ -511,6 +523,15 @@ public class GameManager : MonoBehaviour
             Destroy(bündelObject);
 
             geld += 150;
+        }
+
+        GameObject[] bubatzTriggerObjecte = GameObject.FindGameObjectsWithTag("BubatzTrigger");
+
+        foreach (GameObject bubatzTriggerObject in bubatzTriggerObjecte)
+        {
+            Destroy(bubatzTriggerObject);
+
+            bubatz += 10;
         }
     }
 
@@ -771,6 +792,31 @@ public class GameManager : MonoBehaviour
         {
             splineAnimateVerkäuferHaus1.Restart(true);
             splineAnimateVerkäuferHaus1.Play();
+        }
+    }
+
+    public void BubatzVerkaufenAngestellter()
+    {
+        int verkauftesBubatz = 0;
+        bool limit = false;
+
+        while (bubatz >= 1 && !limit)
+        {
+            bubatz -= 1;
+            geld += 15;
+
+            verkauftesBubatz += 1;
+
+            if (verkauftesBubatz >= 500)
+            {
+                limit = true;
+            }
+        }
+
+        if (verkauftesBubatz > 0)
+        {
+            splineAnimateVerkäuferHaus2.Restart(true);
+            splineAnimateVerkäuferHaus2.Play();
         }
     }
 
