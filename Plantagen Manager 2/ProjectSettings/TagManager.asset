@@ -10,7 +10,6 @@ TagManager:
   - Angestellter
   - KokainTrigger
   - 1K
-  - SchwarzLichHaus1Trigger
   - 150
   - "B\xFCndelAbholbar"
   - Lager
@@ -20,6 +19,8 @@ TagManager:
   - "CannabisB\xFCndel"
   - BubatzTrigger
   - CannabisBox
+  - SchwarzLichtHaus1Trigger
+  - SchwarzLichtHaus2Trigger
   layers:
   - Default
   - TransparentFX

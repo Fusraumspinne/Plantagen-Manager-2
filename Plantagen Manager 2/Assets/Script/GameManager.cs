@@ -99,8 +99,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus2Schild;
     [SerializeField] private GameObject haus2Tür;
     [SerializeField] private GameObject haus2Panel;
-
+    [SerializeField] private GameObject[] haus2TischeObject;
+    [SerializeField] private GameObject verpackstationHaus2Object;
+    [SerializeField] private GameObject angestellter1Haus2Object;
+    [SerializeField] private GameObject angestellter2Haus2Object;
+    [SerializeField] private GameObject haus2LaborObject;
     [SerializeField] private GameObject haus2AngestellterPanel;
+    [SerializeField] private GameObject haus2SchwarzLichtObject;
+    [SerializeField] private GameObject haus2SchwarzLichtTrigger;
+    [SerializeField] private GameObject drohneHaus2;
+
+    [SerializeField] private GameObject tischeHaus2Btn;
+    [SerializeField] private GameObject verpackstationHaus2Btn;
+    [SerializeField] private GameObject laborHaus2Btn;
+    [SerializeField] private GameObject drohneHaus2Btn;
+    [SerializeField] private GameObject schwarzLichtHaus2Btn;
+    [SerializeField] private GameObject angestellter1Haus2Btn;
+    [SerializeField] private GameObject angestellter2Haus2Btn;
 
     [Space(5)]
     [Header("Haus3")]
@@ -121,6 +136,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text bubatzanzeigeAngesellter;
     [SerializeField] private TMP_Text heroinanzeige;
     [SerializeField] private TMP_Text tischAnzeige;
+    [SerializeField] private TMP_Text tischeAnzeigeHaus2;
     [SerializeField] private TMP_Text schuldenAnzeige;
     [SerializeField] private TMP_Text sensAnzeige;
 
@@ -318,6 +334,44 @@ public class GameManager : MonoBehaviour
         {
             drohneHaus1.SetActive(true);
         }
+
+        for (int i = 0; i < haus2Tische; i++)
+        {
+            haus2TischeObject[i].SetActive(true);
+        }
+
+        if (haus2Verpackstation == true)
+        {
+            verpackstationHaus2Object.SetActive(true);
+        }
+
+        if (haus2Angestellter1 == true)
+        {
+            angestellter1Haus2Object.SetActive(true);
+        }
+
+        if (haus2Angestellter2 == true)
+        {
+            angestellter2Haus2Object.SetActive(true);
+        }
+
+        if (haus2Labor == true)
+        {
+            haus2LaborObject.SetActive(true);
+        }
+
+        if (haus2SchwarzLicht == true)
+        {
+            haus2SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus2SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
+        }
+
+        if (haus2Drohne == true)
+        {
+            drohneHaus2.SetActive(true);
+        }
     }
 
     public void AnzeigeUpdate()
@@ -333,6 +387,7 @@ public class GameManager : MonoBehaviour
         heroinanzeige.text = "Heroin: " + heroin.ToString() + "stk";
 
         tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
+        tischeAnzeigeHaus2.text = "Tische: " + haus2Tische + " weiteren kaufen für: 1500$";
     }
 
     public void UIHandler()
@@ -593,6 +648,41 @@ public class GameManager : MonoBehaviour
         {
             angestellter2Haus1Btn.SetActive(false);
         }
+
+        if (haus2Tische == 15)
+        {
+            tischeHaus2Btn.SetActive(false);
+        }
+
+        if (haus2Verpackstation == true)
+        {
+            verpackstationHaus2Btn.SetActive(false);
+        }
+
+        if (haus2Labor == true)
+        {
+            laborHaus2Btn.SetActive(false);
+        }
+
+        if (haus2SchwarzLicht == true)
+        {
+            schwarzLichtHaus2Btn.SetActive(false);
+        }
+
+        if (haus2Drohne == true)
+        {
+            drohneHaus2Btn.SetActive(false);
+        }
+
+        if (haus2Angestellter1 == true)
+        {
+            angestellter1Haus2Btn.SetActive(false);
+        }
+
+        if (haus2Angestellter2 == true)
+        {
+            angestellter2Haus2Btn.SetActive(false);
+        }
     }
 
     public void OnSliderValueChanged()
@@ -697,8 +787,20 @@ public class GameManager : MonoBehaviour
                 tischeObject[i].SetActive(true);
             }
         }
+    }
 
-        tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
+    public void BuyTischHaus2()
+    {
+        if (geld >= 1500 && haus2Tische < 15)
+        {
+            haus2Tische++;
+            geld -= 1500;
+
+            for (int i = 0; i < haus2Tische; i++)
+            {
+                haus2TischeObject[i].SetActive(true);
+            }
+        }
     }
 
     public void BuyVerpackstationHaus1()
@@ -709,6 +811,17 @@ public class GameManager : MonoBehaviour
             geld -= 7500;
 
             verpackstationHaus1Object.SetActive(true);  
+        }
+    }
+
+    public void BuyVerpackstationHaus2()
+    {
+        if (geld >= 10000 && haus2Verpackstation == false)
+        {
+            haus2Verpackstation = true;
+            geld -= 10000;
+
+            verpackstationHaus2Object.SetActive(true);
         }
     }
 
@@ -723,6 +836,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyAngestellter1Haus2()
+    {
+        if (geld >= 15000 && haus2Angestellter1 == false)
+        {
+            haus2Angestellter1 = true;
+            geld -= 15000;
+
+            angestellter1Haus2Object.SetActive(true);
+        }
+    }
+
     public void BuyAngestellter2Haus1()
     {
         if(geld >= 15000 && haus1Angestellter2 == false)
@@ -734,6 +858,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyAngestellter2Haus2()
+    {
+        if (geld >= 20000 && haus2Angestellter2 == false)
+        {
+            haus2Angestellter2 = true;
+            geld -= 20000;
+
+            angestellter2Haus2Object.SetActive(true);
+        }
+    }
+
     public void BuyLaborHaus1()
     {
         if(geld >= 10000 && haus1Labor == false)
@@ -742,6 +877,17 @@ public class GameManager : MonoBehaviour
             geld -= 10000;
 
             haus1LaborObject.SetActive(true);
+        }
+    }
+
+    public void BuyLaborHaus2()
+    {
+        if (geld >= 15000 && haus2Labor == false)
+        {
+            haus2Labor = true;
+            geld -= 15000;
+
+            haus2LaborObject.SetActive(true);
         }
     }
 
@@ -759,6 +905,20 @@ public class GameManager : MonoBehaviour
         } 
     }
 
+    public void BuySchwarzLichtHaus2()
+    {
+        if (geld >= 20000 && haus2SchwarzLicht == false)
+        {
+            haus2SchwarzLicht = true;
+            geld -= 20000;
+
+            haus2SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus2SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
+        }
+    }
+
     public void BuyDrohneHaus1()
     {
         if(geld >= 20000 && haus1Drohne == false)
@@ -767,6 +927,17 @@ public class GameManager : MonoBehaviour
             geld -= 20000;
 
             drohneHaus1.SetActive(true);
+        }
+    }
+
+    public void BuyDrohneHaus2()
+    {
+        if (geld >= 25000 && haus2Drohne == false)
+        {
+            haus2Drohne = true;
+            geld -= 25000;
+
+            drohneHaus2.SetActive(true);
         }
     }
 
