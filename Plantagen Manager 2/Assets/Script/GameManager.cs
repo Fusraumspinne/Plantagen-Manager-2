@@ -586,7 +586,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(bubatzTriggerObject);
 
-            bubatz += 10;
+            bubatz += 20;
         }
     }
 

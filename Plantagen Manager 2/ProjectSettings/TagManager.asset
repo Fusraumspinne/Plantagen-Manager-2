@@ -21,6 +21,8 @@ TagManager:
   - CannabisBox
   - SchwarzLichtHaus1Trigger
   - SchwarzLichtHaus2Trigger
+  - "MohnB\xFCndelAbholbar"
+  - "MohnB\xFCndel"
   layers:
   - Default
   - TransparentFX
