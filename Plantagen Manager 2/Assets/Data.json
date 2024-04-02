@@ -20,5 +20,12 @@
     "haus2Angestellter2": true,
     "haus2Labor": true,
     "haus2SchwarzLicht": true,
-    "haus2Drohne": true
+    "haus2Drohne": true,
+    "haus3Tische": 0,
+    "haus3Verpackstation": false,
+    "haus3Angestellter1": false,
+    "haus3Angestellter2": false,
+    "haus3Labor": false,
+    "haus3SchwarzLicht": false,
+    "haus3Drohne": false
 }

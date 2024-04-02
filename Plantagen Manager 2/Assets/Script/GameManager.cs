@@ -49,6 +49,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool haus2SchwarzLicht;
     [SerializeField] private bool haus2Drohne;
 
+    [SerializeField] private int haus3Tische;
+    [SerializeField] private bool haus3Verpackstation;
+    [SerializeField] private bool haus3Angestellter1;
+    [SerializeField] private bool haus3Angestellter2;
+    [SerializeField] private bool haus3Labor;
+    [SerializeField] private bool haus3SchwarzLicht;
+    [SerializeField] private bool haus3Drohne;
+
     [Space(5)]
     [Header("Spielwelt Objekte")]
     [Space(5)]
@@ -232,6 +240,14 @@ public class GameManager : MonoBehaviour
         data.haus2SchwarzLicht = haus2SchwarzLicht;
         data.haus2Drohne = haus2Drohne;
 
+        data.haus3Tische = haus3Tische;
+        data.haus3Verpackstation = haus3Verpackstation;
+        data.haus3Angestellter1 = haus3Angestellter1;
+        data.haus3Angestellter2 = haus3Angestellter2;
+        data.haus3Labor = haus3Labor;
+        data.haus3SchwarzLicht = haus3SchwarzLicht;
+        data.haus3Drohne = haus3Drohne;
+
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(Application.dataPath + "/Data.json", json);
 
@@ -268,6 +284,14 @@ public class GameManager : MonoBehaviour
         haus2Labor = data.haus2Labor;
         haus2SchwarzLicht = data.haus2SchwarzLicht;
         haus2Drohne = data.haus2Drohne;
+
+        haus3Tische = data.haus3Tische;
+        haus3Verpackstation = data.haus3Verpackstation;
+        haus3Angestellter1 = data.haus3Angestellter1;
+        haus3Angestellter2 = data.haus3Angestellter2;
+        haus3Labor = data.haus3Labor;
+        haus3SchwarzLicht = data.haus3SchwarzLicht;
+        haus3Drohne = data.haus3Drohne;
 
         Aktualisieren();
     }

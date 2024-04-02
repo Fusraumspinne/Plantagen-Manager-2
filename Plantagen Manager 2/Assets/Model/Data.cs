@@ -27,4 +27,12 @@ public class Data
     public bool haus2Labor;
     public bool haus2SchwarzLicht;
     public bool haus2Drohne;
+
+    public int haus3Tische;
+    public bool haus3Verpackstation;
+    public bool haus3Angestellter1;
+    public bool haus3Angestellter2;
+    public bool haus3Labor;
+    public bool haus3SchwarzLicht;
+    public bool haus3Drohne;
 }
