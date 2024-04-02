@@ -612,6 +612,15 @@ public class GameManager : MonoBehaviour
 
             bubatz += 20;
         }
+
+        GameObject[] heroinTriggerObjecte = GameObject.FindGameObjectsWithTag("HeroinTrigger");
+
+        foreach (GameObject heroinTriggerObject in heroinTriggerObjecte)
+        {
+            Destroy(heroinTriggerObject);
+
+            heroin += 10;
+        }
     }
 
     public void SchuldenAutomatischBezahlen()

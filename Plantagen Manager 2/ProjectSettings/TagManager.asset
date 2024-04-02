@@ -23,6 +23,9 @@ TagManager:
   - SchwarzLichtHaus2Trigger
   - "MohnB\xFCndelAbholbar"
   - "MohnB\xFCndel"
+  - MohnBox
+  - HeroinTrigger
+  - SchwarzLichtHaus3Trigger
   layers:
   - Default
   - TransparentFX
