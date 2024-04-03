@@ -1,5 +1,5 @@
 {
-    "geld": 278700,
+    "geld": 109700,
     "kokain": 1400,
     "bubatz": 50,
     "heroin": 3,
@@ -21,11 +21,11 @@
     "haus2Labor": true,
     "haus2SchwarzLicht": true,
     "haus2Drohne": true,
-    "haus3Tische": 0,
-    "haus3Verpackstation": false,
-    "haus3Angestellter1": false,
-    "haus3Angestellter2": false,
-    "haus3Labor": false,
-    "haus3SchwarzLicht": false,
-    "haus3Drohne": false
+    "haus3Tische": 17,
+    "haus3Verpackstation": true,
+    "haus3Angestellter1": true,
+    "haus3Angestellter2": true,
+    "haus3Labor": true,
+    "haus3SchwarzLicht": true,
+    "haus3Drohne": true
 }

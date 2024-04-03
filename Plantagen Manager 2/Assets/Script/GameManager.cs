@@ -133,6 +133,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject haus3Tür;
     [SerializeField] private GameObject haus3Panel;
 
+    [SerializeField] private GameObject[] haus3TischeObject;
+    [SerializeField] private GameObject verpackstationHaus3Object;
+    [SerializeField] private GameObject angestellter1Haus3Object;
+    [SerializeField] private GameObject angestellter2Haus3Object;
+    [SerializeField] private GameObject haus3LaborObject;
+    [SerializeField] private GameObject haus3AngestellterPanel;
+    [SerializeField] private GameObject haus3SchwarzLichtObject;
+    [SerializeField] private GameObject haus3SchwarzLichtTrigger;
+    [SerializeField] private GameObject drohneHaus3;
+
+    [SerializeField] private GameObject tischeHaus3Btn;
+    [SerializeField] private GameObject verpackstationHaus3Btn;
+    [SerializeField] private GameObject laborHaus3Btn;
+    [SerializeField] private GameObject drohneHaus3Btn;
+    [SerializeField] private GameObject schwarzLichtHaus3Btn;
+    [SerializeField] private GameObject angestellter1Haus3Btn;
+    [SerializeField] private GameObject angestellter2Haus3Btn;
+
     [Space(5)]
     [Header("Anzeigen")]
     [Space(5)]
@@ -141,10 +159,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text kokainanzeige;
     [SerializeField] private TMP_Text kokainanzeigeAngestellter;
     [SerializeField] private TMP_Text bubatzanzeige;
-    [SerializeField] private TMP_Text bubatzanzeigeAngesellter;
+    [SerializeField] private TMP_Text bubatzanzeigeAngestellter;
     [SerializeField] private TMP_Text heroinanzeige;
+    [SerializeField] private TMP_Text heroinanzeigeAngestellter;
     [SerializeField] private TMP_Text tischAnzeige;
     [SerializeField] private TMP_Text tischeAnzeigeHaus2;
+    [SerializeField] private TMP_Text tischeAnzeigeHaus3;
     [SerializeField] private TMP_Text schuldenAnzeige;
     [SerializeField] private TMP_Text sensAnzeige;
 
@@ -160,6 +180,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus1;
     [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus2;
+    [SerializeField] private SplineAnimate splineAnimateVerkäuferHaus3;
 
     [Space(5)]
     [Header("Cooldowns")]
@@ -396,6 +417,44 @@ public class GameManager : MonoBehaviour
         {
             drohneHaus2.SetActive(true);
         }
+
+        for (int i = 0; i < haus3Tische; i++)
+        {
+            haus3TischeObject[i].SetActive(true);
+        }
+
+        if (haus3Verpackstation == true)
+        {
+            verpackstationHaus3Object.SetActive(true);
+        }
+
+        if (haus3Angestellter1 == true)
+        {
+            angestellter1Haus3Object.SetActive(true);
+        }
+
+        if (haus3Angestellter2 == true)
+        {
+            angestellter2Haus3Object.SetActive(true);
+        }
+
+        if (haus3Labor == true)
+        {
+            haus3LaborObject.SetActive(true);
+        }
+
+        if (haus3SchwarzLicht == true)
+        {
+            haus3SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus3SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
+        }
+
+        if (haus3Drohne == true)
+        {
+            drohneHaus3.SetActive(true);
+        }
     }
 
     public void AnzeigeUpdate()
@@ -407,11 +466,13 @@ public class GameManager : MonoBehaviour
         kokainanzeige.text = "Kokain: " + kokain.ToString() + "g";
         kokainanzeigeAngestellter.text = "Kokain: " + kokain.ToString() + "g";
         bubatzanzeige.text = "Bubatz: " + bubatz.ToString() + "stk";
-        bubatzanzeigeAngesellter.text = "Bubatz: " + bubatz.ToString() + "stk";
+        bubatzanzeigeAngestellter.text = "Bubatz: " + bubatz.ToString() + "stk";
         heroinanzeige.text = "Heroin: " + heroin.ToString() + "stk";
+        heroinanzeigeAngestellter.text = "Heroin: " + heroin.ToString() + "stk";
 
         tischAnzeige.text = "Tische: " + haus1Tische + " weiteren kaufen für: 1000$";
         tischeAnzeigeHaus2.text = "Tische: " + haus2Tische + " weiteren kaufen für: 1500$";
+        tischeAnzeigeHaus3.text = "Tische: " + haus3Tische + " weiteren kaufen für: 2000$";
     }
 
     public void UIHandler()
@@ -509,6 +570,13 @@ public class GameManager : MonoBehaviour
             else if (haus2AngestellterPanel.activeSelf)
             {
                 haus2AngestellterPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                player.enabled = true;
+            }
+            else if(haus3AngestellterPanel.activeSelf)
+            {
+                haus3AngestellterPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 player.enabled = true;
@@ -716,6 +784,41 @@ public class GameManager : MonoBehaviour
         {
             angestellter2Haus2Btn.SetActive(false);
         }
+
+        if (haus3Tische == 17)
+        {
+            tischeHaus3Btn.SetActive(false);
+        }
+
+        if (haus3Verpackstation == true)
+        {
+            verpackstationHaus3Btn.SetActive(false);
+        }
+
+        if (haus3Labor == true)
+        {
+            laborHaus3Btn.SetActive(false);
+        }
+
+        if (haus3SchwarzLicht == true)
+        {
+            schwarzLichtHaus3Btn.SetActive(false);
+        }
+
+        if (haus3Drohne == true)
+        {
+            drohneHaus3Btn.SetActive(false);
+        }
+
+        if (haus3Angestellter1 == true)
+        {
+            angestellter1Haus3Btn.SetActive(false);
+        }
+
+        if (haus3Angestellter2 == true)
+        {
+            angestellter2Haus3Btn.SetActive(false);
+        }
     }
 
     public void OnSliderValueChanged()
@@ -836,6 +939,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyTischHaus3()
+    {
+        if (geld >= 2000 && haus3Tische < 17)
+        {
+            haus3Tische++;
+            geld -= 2000;
+
+            for (int i = 0; i < haus3Tische; i++)
+            {
+                haus3TischeObject[i].SetActive(true);
+            }
+        }
+    }
+
     public void BuyVerpackstationHaus1()
     {
         if (geld >= 7500 && haus1Verpackstation == false)
@@ -855,6 +972,17 @@ public class GameManager : MonoBehaviour
             geld -= 10000;
 
             verpackstationHaus2Object.SetActive(true);
+        }
+    }
+
+    public void BuyVerpackstationHaus3()
+    {
+        if (geld >= 15000 && haus3Verpackstation == false)
+        {
+            haus3Verpackstation = true;
+            geld -= 15000;
+
+            verpackstationHaus3Object.SetActive(true);
         }
     }
 
@@ -880,6 +1008,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyAngestellter1Haus3()
+    {
+        if (geld >= 20000 && haus3Angestellter1 == false)
+        {
+            haus3Angestellter1 = true;
+            geld -= 20000;
+
+            angestellter1Haus3Object.SetActive(true);
+        }
+    }
+
     public void BuyAngestellter2Haus1()
     {
         if(geld >= 15000 && haus1Angestellter2 == false)
@@ -902,6 +1041,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuyAngestellter2Haus3()
+    {
+        if (geld >= 25000 && haus3Angestellter2 == false)
+        {
+            haus3Angestellter2 = true;
+            geld -= 25000;
+
+            angestellter2Haus3Object.SetActive(true);
+        }
+    }
+
     public void BuyLaborHaus1()
     {
         if(geld >= 10000 && haus1Labor == false)
@@ -921,6 +1071,17 @@ public class GameManager : MonoBehaviour
             geld -= 15000;
 
             haus2LaborObject.SetActive(true);
+        }
+    }
+
+    public void BuyLaborHaus3()
+    {
+        if (geld >= 20000 && haus3Labor == false)
+        {
+            haus3Labor = true;
+            geld -= 20000;
+
+            haus3LaborObject.SetActive(true);
         }
     }
 
@@ -952,6 +1113,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BuySchwarzLichtHaus3()
+    {
+        if (geld >= 25000 && haus3SchwarzLicht == false)
+        {
+            haus3SchwarzLicht = true;
+            geld -= 25000;
+
+            haus3SchwarzLichtObject.SetActive(true);
+
+            GameObject spawnedObject = Instantiate(haus3SchwarzLichtTrigger, spawnPoint.transform);
+            spawnedObject.transform.localPosition = Vector3.zero;
+        }
+    }
+
     public void BuyDrohneHaus1()
     {
         if(geld >= 20000 && haus1Drohne == false)
@@ -971,6 +1146,17 @@ public class GameManager : MonoBehaviour
             geld -= 25000;
 
             drohneHaus2.SetActive(true);
+        }
+    }
+
+    public void BuyDrohneHaus3()
+    {
+        if (geld >= 30000 && haus3Drohne == false)
+        {
+            haus3Drohne = true;
+            geld -= 30000;
+
+            drohneHaus3.SetActive(true);
         }
     }
 
@@ -1021,6 +1207,31 @@ public class GameManager : MonoBehaviour
         {
             splineAnimateVerkäuferHaus2.Restart(true);
             splineAnimateVerkäuferHaus2.Play();
+        }
+    }
+
+    public void HeroinVerkaufenAngestellter()
+    {
+        int verkauftesHeroin = 0;
+        bool limit = false;
+
+        while (heroin >= 1 && !limit)
+        {
+            heroin -= 1;
+            geld += 60;
+
+            verkauftesHeroin += 1;
+
+            if (verkauftesHeroin >= 250)
+            {
+                limit = true;
+            }
+        }
+
+        if (verkauftesHeroin > 0)
+        {
+            splineAnimateVerkäuferHaus3.Restart(true);
+            splineAnimateVerkäuferHaus3.Play();
         }
     }
 

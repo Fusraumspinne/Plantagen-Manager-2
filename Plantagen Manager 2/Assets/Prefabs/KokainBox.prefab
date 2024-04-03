@@ -183,9 +183,9 @@ GameObject:
   - component: {fileID: 9162079012646144667}
   - component: {fileID: 4499268026997005219}
   - component: {fileID: 8997788838567303697}
-  - component: {fileID: 2148761522970554849}
   - component: {fileID: 6850400329649994044}
   - component: {fileID: 5875877818392074124}
+  - component: {fileID: 7970555960930944879}
   m_Layer: 0
   m_Name: KokainBox
   m_TagString: KokainBox
@@ -200,7 +200,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6626958593124710637}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.614, y: 16.636, z: 10.457}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
@@ -208,7 +208,7 @@ Transform:
   - {fileID: 4845148913197867035}
   - {fileID: 4503036682713226886}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4499268026997005219
 MeshFilter:
@@ -260,28 +260,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2148761522970554849
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6626958593124710637}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43885742185477074, guid: 4e4e6f7d375bca94cbfbea99a5376a72, type: 2}
 --- !u!54 &6850400329649994044
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -308,7 +286,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5875877818392074124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +303,27 @@ MonoBehaviour:
   tp: 0
   targetTag: Drag
   rb: {fileID: 6850400329649994044}
+--- !u!65 &7970555960930944879
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6626958593124710637}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.46508095, z: 0.5}
+  m_Center: {x: 0, y: 0.23254047, z: 0.0000012218952}
 --- !u!1 &7963341276402911456
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class Drone : MonoBehaviour
     [SerializeField] private bool aufDemWeg;
     [SerializeField] private bool gefunden;
     [SerializeField] private bool abgegeben;
+    [SerializeField] private bool zerstören;
 
     [SerializeField] private bool lagern;
     [SerializeField] private bool einpacken;
@@ -74,6 +75,7 @@ public class Drone : MonoBehaviour
                 {
                     aufDemWeg = false;
                     gefunden = true;
+                    zerstören = true;
 
                     trigger.enabled = true;
                 }
@@ -85,7 +87,12 @@ public class Drone : MonoBehaviour
     {
         if (other.CompareTag(targetTag) && gefunden)
         {
-            Destroy(other.gameObject);
+            if (zerstören)
+            {
+                Destroy(other.gameObject);
+                zerstören = false;
+            }
+
             deco.SetActive(true);
 
             if (lagern)
