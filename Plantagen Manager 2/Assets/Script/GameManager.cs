@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private bool haus1;
     [SerializeField] private bool haus2;
-    [SerializeField] private bool haus3;   
+    [SerializeField] private bool haus3;
+    [SerializeField] private bool kontrollzentrum;
 
     [SerializeField] private int haus1Tische;
     [SerializeField] private bool haus1Verpackstation;
@@ -74,6 +75,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject einstellungenPanel;
     [SerializeField] private GameObject steuerungsPanel;
     [SerializeField] private GameObject drohnePanel;
+    [SerializeField] private GameObject KontrollZentrumTürAuf;
+    [SerializeField] private GameObject KontrollZentrumTürZu;
+    [SerializeField] private GameObject KontrollZentrumPanel;
 
     [Space(5)]
     [Header("Haus1")]
@@ -244,6 +248,7 @@ public class GameManager : MonoBehaviour
         data.haus1 = haus1;
         data.haus2 = haus2;
         data.haus3 = haus3;
+        data.kontrollzentrum = kontrollzentrum;
 
         data.haus1Tische = haus1Tische;
         data.haus1Verpackstation = haus1Verpackstation;
@@ -289,6 +294,7 @@ public class GameManager : MonoBehaviour
         haus1 = data.haus1;
         haus2 = data.haus2;
         haus3 = data.haus3;
+        kontrollzentrum = data.kontrollzentrum;
 
         haus1Tische = data.haus1Tische;
         haus1Verpackstation = data.haus1Verpackstation;
@@ -581,6 +587,13 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 player.enabled = true;
             }
+            else if (KontrollZentrumPanel.activeSelf)
+            {
+                KontrollZentrumPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                player.enabled = true;
+            }
             else
             {
                 if (menu.activeSelf)
@@ -640,6 +653,12 @@ public class GameManager : MonoBehaviour
         {
             haus3Schild.SetActive(false);
             haus3Tür.SetActive(true);
+        }
+
+        if (kontrollzentrum)
+        {
+            KontrollZentrumTürAuf.SetActive(true);
+            KontrollZentrumTürZu.SetActive(false);
         }
     }
 
@@ -908,6 +927,15 @@ public class GameManager : MonoBehaviour
         {
             haus3 = true;
             geld -= 50000;
+        }
+    }
+
+    public void KontrollZentrum()
+    {
+        if (geld >= 75000 && !kontrollzentrum)
+        {
+            kontrollzentrum = true;
+            geld -= 75000;
         }
     }
 

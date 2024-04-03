@@ -11,10 +11,12 @@ public class HausAnzeigeTrigger : MonoBehaviour
     [SerializeField] private bool haus1;
     [SerializeField] private bool haus2;
     [SerializeField] private bool haus3;
+    [SerializeField] private bool kontrollZentrum;
 
     [SerializeField] private GameObject haus1Panel;
     [SerializeField] private GameObject haus2Panel;
     [SerializeField] private GameObject haus3Panel;
+    [SerializeField] private GameObject kontrollZentrumPanel;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -57,6 +59,14 @@ public class HausAnzeigeTrigger : MonoBehaviour
             else if(haus3 && active)
             {
                 haus3Panel.SetActive(true);
+                e.SetActive(false);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                player.enabled = false;
+            }
+            else if(kontrollZentrum && active) 
+            {
+                kontrollZentrumPanel.SetActive(true);
                 e.SetActive(false);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;

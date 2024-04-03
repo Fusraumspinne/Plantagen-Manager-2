@@ -1,5 +1,5 @@
 {
-    "geld": 109700,
+    "geld": 34700,
     "kokain": 1400,
     "bubatz": 50,
     "heroin": 3,
@@ -7,6 +7,7 @@
     "haus1": true,
     "haus2": true,
     "haus3": true,
+    "kontrollzentrum": true,
     "haus1Tische": 13,
     "haus1Verpackstation": true,
     "haus1Angestellter1": true,

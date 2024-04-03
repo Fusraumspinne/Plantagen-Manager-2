@@ -11,6 +11,7 @@ public class Data
     public bool haus1;
     public bool haus2;
     public bool haus3;
+    public bool kontrollzentrum;
 
     public int haus1Tische;
     public bool haus1Verpackstation;
